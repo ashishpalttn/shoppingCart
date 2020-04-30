@@ -1,7 +1,28 @@
 import { SafeAreaView ,StyleSheet,Text, View,Image, TouchableOpacity} from 'react-native';
 import  React  from "react";
+import { FlatList } from 'react-native-gesture-handler';
 class Home extends React.Component{
+
+     Item=({ title })=> {
+        console.log(title)
+        return (
+     
+            <View style={styles.freeShippingView}>
+            <View style={styles.cycleImage}>
+                <Image style={{width:30,height:30}} source={{uri:title.id}}>
+                </Image>
+            </View>
+        <Text style={{fontWeight:'bold'}}>{title.Fname}</Text>
+        <Text>{title.Sname}</Text>
+        <Text>{title.Tname}</Text>
+        </View>
+        );
+      }
+DATA=[{Fname:'AED 250',Sname:'on all orders above',Tname:'FREE SHIPPING',id:'https://img.icons8.com/android/2x/box.png'},
+{Fname:'SHOP & COLLECT',Sname:'FREE Collect On all',Tname:'order above AED 100',id:'https://img.icons8.com/android/2x/box.png'},
+{Fname:'AED 250',Sname:'on all orders above',Tname:'FREE SHIPPING',id:'https://img.icons8.com/android/2x/box.png'}]
 render(){
+    
     return(
         <SafeAreaView style={styles.container}>
             <View style={styles.myCartView}>
@@ -51,32 +72,11 @@ render(){
                  </TouchableOpacity>   
                 <View style={[styles.line,{backgroundColor:'#808080'}]}></View>
                 <View style={styles.shippingView}>
-                    <View style={styles.freeShippingView}>
-                        <View style={styles.cycleImage}>
-                            <Image style={{width:30,height:30}} source={{uri:'https://img.icons8.com/android/2x/box.png'}}>
-                            </Image>
-                        </View>
-                        <Text style={{fontWeight:'bold'}}>FREE SHIPPING</Text>
-                        <Text>on all orders above</Text>
-                        <Text>AED 250</Text>
-                    </View>
-                    <View style={styles.freeShippingView}>
-                        <View style={[styles.cycleImage,{justifyContent:'center'}]}>
-                            <Image style={{width:30,height:30}} source={{uri:"https://img.icons8.com/dotty/2x/shopping-bag.png"}}>
-                            </Image>
-                        </View>
-                        <Text style={{fontWeight:'bold'}}>SHOP &amp; COLLECT</Text>
-                        <Text>FREE Collect On all</Text>
-                        <Text>order above AED 100</Text>
-                    </View>
-                    <View style={styles.freeShippingView}>
-                        <View style={[styles.cycleImage,{justifyContent:'center'}]}>
-                            <Image style={{width:30,height:30}} source={{uri:'https://img.icons8.com/windows/2x/cash-in-hand.png'}}>
-                            </Image>
-                        </View>
-                        <Text style={{fontWeight:'bold'}}>CASH ON DELIVERY</Text>
-                        <Text>find your easiest way</Text>
-                        <Text>make payment</Text>
+                    <FlatList horizontal data={this.DATA}
+                     renderItem={({ item }) => <this.Item title={item} />}
+                    //  keyExtractor={item => item.id}
+                     >
+                    </FlatList>
                     </View>
                 </View>
                 <View style={[styles.line,{backgroundColor:'#bababa'}]}></View>
@@ -103,14 +103,14 @@ render(){
                     </TouchableOpacity>
                 </View>
                 <View style={styles.whiteLine}></View>
-            </View>
+            {/* </View> */}
          
            
         </SafeAreaView>
     )
 }
 }
-/*          style={styles.}        */
+
 const styles=StyleSheet.create({
     checkout:{
         backgroundColor:'#e0c143',
@@ -172,7 +172,7 @@ const styles=StyleSheet.create({
         alignItems:'center'
     },
     freeShippingView:{
-        width:'33.33%',
+        width:138,
         backgroundColor:'#edeff2',
         alignItems:'center',
         justifyContent:"center"
@@ -182,7 +182,7 @@ const styles=StyleSheet.create({
         width:"100%",
         height:150,
         backgroundColor:'green',
-        flexDirection:'row'
+        // flexDirection:'row'
     },
     signView:{
         width:"100%",
